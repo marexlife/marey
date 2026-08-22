@@ -14,7 +14,7 @@ internal sealed class ParsePacket
     }
     internal int Progress { get; private set; }
 
-    internal Token CurrentToken => Tokens[Progress];
+    internal Token Token => Tokens[Progress];
 
-    internal TokenKind Kind => CurrentToken.TokenKind;
+    internal TokenKind Kind => Token.TokenKind;
 }
