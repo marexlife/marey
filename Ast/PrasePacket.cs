@@ -16,5 +16,5 @@ internal sealed class ParsePacket
 
     internal Token CurrentToken => Tokens[Progress];
 
-    internal TokenKind Kind => Tokens[Progress].TokenKind;
+    internal TokenKind Kind => CurrentToken.TokenKind;
 }
