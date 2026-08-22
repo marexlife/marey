@@ -9,38 +9,18 @@ internal sealed class ClassNode : ASTNode
 {
     private List<ClassItem> _classItems = [];
 
-    internal override void Flush()
-    {
-        throw new NotImplementedException();
-    }
-
-    internal override void Parse(List<Token> tokens)
-    {
-        SelectClassItems(tokens);
-
-        IteratorOver(tokens);
-    }
-
-    void SelectClassItems(List<Token> tokens)
+    internal override void Parse(List<Token> tokens, out int jumpCount)
     {
         foreach (Token token in tokens)
         {
-            switch (token.TokenKind)
+            _classItems.Add(token.TokenKind switch
             {
-                case TokenKind.Fun:
-                    break;
-                case TokenKind.EndFun:
-                    break;
-                default: throw new UnreachableException();
-            }
+                TokenKind.Fun => new MethodNode(),
+                TokenKind.Var => new FieldNode(),
+                _ => throw new UnreachableException(),
+            });
         }
-    }
 
-    void IteratorOver(List<Token> tokens)
-    {
-        foreach (ClassItem classItem in _classItems)
-        {
-            classItem.Parse(tokens);
-        }
+        throw new NotImplementedException();
     }
 }

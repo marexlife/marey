@@ -2,15 +2,10 @@ namespace Marey;
 
 internal sealed class TranslationUnit : ASTNode
 {
-    private ClassNode ClassNode = new();
+    private ClassNode _classNode = new();
 
-    internal override void Flush()
+    internal override void Parse(List<Token> tokens, out int jumpCount)
     {
-        throw new NotImplementedException();
-    }
-
-    internal override void Parse(List<Token> tokens)
-    {
-        ClassNode.Parse(tokens);
+        _classNode.Parse(tokens, out jumpCount);
     }
 }

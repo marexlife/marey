@@ -1,6 +1,6 @@
 namespace Marey;
 
-internal sealed class MethodNode : ClassItem
+internal sealed class FieldNode : ClassItem
 {
     internal override void Parse(List<Token> tokens, out int jumpCount)
     {
