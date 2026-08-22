@@ -9,17 +9,30 @@ internal sealed class MethodNode : ClassItem
 
     internal override void Parse(ParsePacket packet)
     {
-        InMethodNode newInMethodNode = packet.Kind switch
+        bool breakOut = false;
+
+        while (!breakOut)
         {
-            TokenKind.Var => new VarDeclNode(),
-            TokenKind.Fun => throw new InvalidNodeException(
-                "Functions declared in methods are not supported"
-            ),
-            _ => throw new NotImplementedException(),
-        };
+            Action action = packet.Kind switch
+            {
+                TokKind.Var => () => AddAndParseSubNode<VarDeclNode>(packet),
+                TokKind.EndBrace => () => breakOut = true,
+                TokKind.Fun => throw new InvalidNodeException(
+                    "Functions declared in methods are not supported"
+                ),
+                _ => throw new NotImplementedException(),
+            };
 
+            action.Invoke();
+        }
+    }
 
+    private void AddAndParseSubNode<T>(ParsePacket packet) where T : InMethodNode
+    {
+        var newInMethodNode = new VarDeclNode();
 
-        throw new NotImplementedException();
+        newInMethodNode.Parse(packet);
+
+        _inMethodNodes.Add(newInMethodNode);
     }
 }

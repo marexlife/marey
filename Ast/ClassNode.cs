@@ -16,8 +16,8 @@ internal sealed class ClassNode : AstNode
         {
             ClassItem classItem = parsePacket.Kind switch
             {
-                TokenKind.Fun => new MethodNode(),
-                TokenKind.Var => new FieldNode(),
+                TokKind.Fun => new MethodNode(),
+                TokKind.Var => new FieldNode(),
                 _ => throw new UnreachableException(),
             };
 

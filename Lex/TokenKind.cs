@@ -1,6 +1,6 @@
 namespace Marey.Lex;
 
-internal enum TokenKind : byte
+internal enum TokKind : byte
 {
     None = 0,
 
@@ -11,4 +11,7 @@ internal enum TokenKind : byte
     Var,
 
     StatementEnd,
+
+    StartBrace,
+    EndBrace,
 }
