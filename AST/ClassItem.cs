@@ -1,3 +1,3 @@
 namespace Marey;
 
-internal abstract class ClassItemNode : ASTNode;
+internal abstract class ClassItem : ASTNode;
