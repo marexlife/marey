@@ -1,4 +1,5 @@
 using Marey.Ast.InMethod;
+using Marey.Lex;
 
 namespace Marey.Ast;
 
@@ -17,7 +18,7 @@ internal sealed class MethodNode : ClassItem
             _ => throw new NotImplementedException(),
         };
 
-        
+
 
         throw new NotImplementedException();
     }
