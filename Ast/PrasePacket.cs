@@ -6,17 +6,19 @@ internal sealed class ParsePacket(List<Token> tokens)
 {
     internal List<Token> Tokens { get; } = tokens;
 
-    internal int TokenJumpCount
+
+    internal int Progress { get; private set; }
+
+
+    internal Token Token
     {
-        set
+        get
         {
-            Progress += value;
+            ++Progress;
+
+            return Tokens[Progress];
         }
     }
-
-    internal int Progress { get; set; }
-
-    internal Token Token => Tokens[Progress];
 
     internal TokenKind Kind => Token.TokenKind;
 }

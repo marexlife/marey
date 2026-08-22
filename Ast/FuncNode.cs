@@ -14,7 +14,19 @@ internal sealed class MethodNode : ClassItem
 
         while (!breakOut)
         {
-            
+            functionName = packet.Token.Lexeme;
+
+            if (packet.Token.TokenKind != TokenKind.OpenBracket)
+            {
+                throw new InvalidNodeException("expected '(' here");
+            }
+
+            if (packet.Token.TokenKind != TokenKind.CloseBracket)
+            {
+                throw new InvalidNodeException(
+                    "arguments are not supported yet, put an ')' there"
+                );
+            }
 
             Action action = packet.Kind switch
             {
@@ -28,6 +40,11 @@ internal sealed class MethodNode : ClassItem
 
             action.Invoke();
         }
+    }
+
+    private void ProcessSignature()
+    {
+
     }
 
     private void AddAndParseSubNode<T>(ParsePacket packet) where T : InMethodNode
