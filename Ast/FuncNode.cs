@@ -24,8 +24,7 @@ internal sealed class MethodNode : ClassItem
         }
         else throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
 
-        if (packet.Kind == TokenKind.OpenBracket) ++packet.Progress;
-        else throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
+        packet.AdvanceIfEqual(TokenKind.OpenBracket);
 
         if (packet.Kind == TokenKind.CloseBracket) ++packet.Progress;
         else throw new InvalidTokenException(packet.Pos, "')'");
