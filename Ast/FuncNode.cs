@@ -22,24 +22,16 @@ internal sealed class MethodNode : ClassItem
 
             functionName = packet.Token.Lexeme;
         }
-        else
-        {
-            throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
-        }
+        else throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
 
         if (packet.Kind == TokenKind.OpenBracket) ++packet.Progress;
         else throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
 
-
         if (packet.Kind == TokenKind.CloseBracket) ++packet.Progress;
-        else throw new InvalidTokenException(
-                packet.Pos, "')'"
-        );
+        else throw new InvalidTokenException(packet.Pos, "')'");
 
         if (packet.Kind == TokenKind.OpenBrace) ++packet.Progress;
-        else throw new InvalidTokenException(
-                packet.Pos, "expected '{'"
-        );
+        else throw new InvalidTokenException(packet.Pos, "expected '{'");
     }
 
     private void ParseFuncBody(ParsePacket packet)
