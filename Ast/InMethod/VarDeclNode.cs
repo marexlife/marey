@@ -1,6 +1,6 @@
 namespace Marey.Ast.InMethod;
 
-internal abstract class InMethodNode : AstNode
+internal sealed class VarDeclNode : InMethodNode
 {
     internal override void Parse(ParsePacket parsePacket)
     {

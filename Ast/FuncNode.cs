@@ -8,13 +8,11 @@ internal sealed class MethodNode : ClassItem
 
     internal override void Parse(ParsePacket packet)
     {
-        InMethodNode action = packet.Kind switch
+        InMethodNode inMethodNode = packet.Kind switch
         {
-            TokenKind
+            TokenKind.Var => new VarDeclNode(),
             _ => throw new NotImplementedException(),
         };
-
-        action.Invoke();
 
         throw new NotImplementedException();
     }
