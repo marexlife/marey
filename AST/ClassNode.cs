@@ -9,7 +9,7 @@ internal sealed class ClassNode : ASTNode
 {
     private List<ClassItem> _classItems = [];
 
-    internal override void Parse(List<Token> tokens, out int jumpCount)
+    internal override void Parse(List<Token> tokens, ref int progress)
     {
         foreach (Token token in tokens)
         {
