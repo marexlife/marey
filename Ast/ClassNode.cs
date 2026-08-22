@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Marey.Lex;
 
 namespace Marey.Ast;
 
