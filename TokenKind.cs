@@ -9,4 +9,6 @@ internal enum TokenKind : byte
 
     // local variables or fields
     Var,
+
+    StatementEnd,
 }
