@@ -10,21 +10,16 @@ internal sealed class ClassNode : AstNode
 {
     private List<ClassItem> _classItems = [];
 
-    internal override void Parse(ParsePacket parsePacket)
+    internal override void Parse(ParsePacket packet)
     {
-        for (int i = 0; i < parsePacket.Progress; ++i)
+        ClassItem classItem = packet.Kind switch
         {
-            ClassItem classItem = parsePacket.Kind switch
-            {
-                TokKind.Fun => new MethodNode(),
-                TokKind.Var => new FieldNode(),
-                _ => throw new UnreachableException(),
-            };
+            TokenKind.Fun => new MethodNode(),
+            TokenKind.Var => new FieldNode(),
+            _ => throw new UnreachableException(),
+        };
 
-            classItem.Parse(parsePacket);
-            _classItems.Add(classItem);
-        }
-
-        throw new NotImplementedException();
+        classItem.Parse(packet);
+        _classItems.Add(classItem);
     }
 }

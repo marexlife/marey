@@ -15,9 +15,9 @@ internal sealed class MethodNode : ClassItem
         {
             Action action = packet.Kind switch
             {
-                TokKind.Var => () => AddAndParseSubNode<VarDeclNode>(packet),
-                TokKind.EndBrace => () => breakOut = true,
-                TokKind.Fun => throw new InvalidNodeException(
+                TokenKind.Var => () => AddAndParseSubNode<VarDeclNode>(packet),
+                TokenKind.EndBrace => () => breakOut = true,
+                TokenKind.Fun => throw new InvalidNodeException(
                     "Functions declared in methods are not supported"
                 ),
                 _ => throw new NotImplementedException(),

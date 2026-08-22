@@ -1,3 +1,3 @@
 namespace Marey.Lex;
 
-internal sealed record Token(TokKind TokenKind, string Lexeme);
+internal sealed record Token(TokenKind TokenKind, string Lexeme);
