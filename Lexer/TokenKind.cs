@@ -1,4 +1,4 @@
-namespace Marey;
+namespace Marey.Lexer;
 
 internal enum TokenKind : byte
 {
