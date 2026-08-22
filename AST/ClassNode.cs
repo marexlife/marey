@@ -13,12 +13,15 @@ internal sealed class ClassNode : ASTNode
     {
         foreach (Token token in tokens)
         {
-            _classItems.Add(token.TokenKind switch
+            ClassItem item = token.TokenKind switch
             {
                 TokenKind.Fun => new MethodNode(),
                 TokenKind.Var => new FieldNode(),
                 _ => throw new UnreachableException(),
-            });
+            };
+
+            item.Parse(tokens, ref progress);
+            _classItems.Add(item);
         }
 
         throw new NotImplementedException();
