@@ -13,15 +13,15 @@ internal sealed class ClassNode : ASTNode
     {
         for (int i = 0; i < parsePacket.Progress; ++i)
         {
-            ClassItem item = parsePacket.CurrentTokenKind switch
+            ClassItem classItem = parsePacket.CurrentTokenKind switch
             {
                 TokenKind.Fun => new MethodNode(),
                 TokenKind.Var => new FieldNode(),
                 _ => throw new UnreachableException(),
             };
 
-            item.Parse(parsePacket);
-            _classItems.Add(item);
+            classItem.Parse(parsePacket);
+            _classItems.Add(classItem);
         }
 
         throw new NotImplementedException();
