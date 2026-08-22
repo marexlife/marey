@@ -4,9 +4,36 @@ internal static class TokenKindExtension
 {
     extension(TokenKind self)
     {
-        internal string EnumAsString() => self switch
+        internal static TokenBiding[] GetTokenBindings() =>
+        [
+            new("}", TokenKind.CloseBrace),
+            new("{", TokenKind.OpenBrace),
+        ];
+
+        internal static TokenKind? FromString(string name)
         {
-            TokenKind.Fun => ""
-        };
+            foreach (TokenBiding binding in GetTokenBindings())
+            {
+                if (binding.Name == name)
+                {
+                    return binding.TokenKind;
+                }
+            }
+
+            return null;
+        }
+
+        internal string? EnumAsString()
+        {
+            foreach (TokenBiding binding in GetTokenBindings())
+            {
+                if (binding.TokenKind == self)
+                {
+                    return binding.Name;
+                }
+            }
+
+            return null;
+        }
     }
 }

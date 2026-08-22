@@ -53,7 +53,7 @@ internal sealed class MethodNode : ClassItem
             switch (packet.Kind)
             {
                 case TokenKind.Var: AddAndParseSubNode<VarDeclNode>(packet); break;
-                case TokenKind.EndBrace: breakOut = true; break;
+                case TokenKind.CloseBrace: breakOut = true; break;
                 case TokenKind.Fun:
                     throw new InvalidTokenException(
                     packet.Token.TokenPos,
