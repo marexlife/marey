@@ -12,7 +12,7 @@ internal enum TokenKind : byte
 
     StatementEnd,
 
-    StartBrace,
+    OpenBrace,
     EndBrace,
     OpenBracket,
     CloseBracket,

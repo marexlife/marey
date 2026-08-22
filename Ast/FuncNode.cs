@@ -16,27 +16,30 @@ internal sealed class MethodNode : ClassItem
 
     private void ParseFuncSignature(ParsePacket packet)
     {
-        functionName = packet.Token.Lexeme;
-
         if (packet.Token.TokenKind == TokenKind.OpenBracket)
         {
             ++packet.Progress;
+
+            functionName = packet.Token.Lexeme;
         }
         else
         {
-            throw new InvalidNodeException($"expected '(' here {packet.Token.TokenPos}");
+            throw new InvalidTokenException(packet.Token.TokenPos, $"expected '('");
         }
 
-        if (packet.Token.TokenKind == TokenKind.CloseBracket)
-        {
-            ++packet.Progress;
-        }
-        else
-        {
-            throw new InvalidNodeException(
-                "arguments are not supported yet, put an ')' there"
-            );
-        }
+        if (packet.Token.TokenKind == TokenKind.OpenBracket) ++packet.Progress;
+        else throw new InvalidTokenException(packet.Token.TokenPos, $"expected '('");
+
+
+        if (packet.Token.TokenKind == TokenKind.CloseBracket) ++packet.Progress;
+        else throw new InvalidTokenException(
+                packet.Token.TokenPos, "')'"
+        );
+
+        if (packet.Token.TokenKind == TokenKind.OpenBrace) ++packet.Progress;
+        else throw new InvalidTokenException(
+                packet.Token.TokenPos, "expected '{'"
+        );
     }
 
     private void ParseFuncBody(ParsePacket packet)
@@ -52,7 +55,8 @@ internal sealed class MethodNode : ClassItem
                 case TokenKind.Var: AddAndParseSubNode<VarDeclNode>(packet); break;
                 case TokenKind.EndBrace: breakOut = true; break;
                 case TokenKind.Fun:
-                    throw new InvalidNodeException(
+                    throw new InvalidTokenException(
+                    packet.Token.TokenPos,
                     "Functions declared in methods are not supported");
                 default:
                     throw new NotImplementedException();
