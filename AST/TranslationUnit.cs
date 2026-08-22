@@ -1,17 +1,12 @@
 namespace Marey;
 
-internal sealed class TranslationUnit
+internal sealed class TranslationUnit : ASTNode
 {
-    private ClassNode _classNode;
-    private string fileName;
+    private ClassNode? _classNode;
+    private string? fileName;
 
-    public TranslationUnit()
+    internal override void Parse(List<Token> tokens)
     {
-
-    }
-    
-    void Parse()
-    {
-        
+        throw new NotImplementedException();
     }
 }

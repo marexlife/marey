@@ -5,10 +5,10 @@ namespace Marey;
 /// </summary>
 internal sealed class ClassNode : ASTNode
 {
-    internal string _className { get; set; }
-    internal List<ClassItemNode> ClassItem { get; set; } = [];
+    private string? _className;
+    private List<ClassItemNode> _classItem = [];
 
-    internal override void Parse()
+    internal override void Parse(List<Token> tokens)
     {
         throw new NotImplementedException();
     }
