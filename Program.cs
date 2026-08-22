@@ -7,8 +7,10 @@ internal static class Program
 {
     private static void Main()
     {
-        var tokens = new Lexer().Run();
+        var sourceCode = "";
 
-        new TranslationUnit().Parse(new ParsePacket(tokens));
+        var tokenStream = new Lexer(sourceCode).Run();
+
+        new TranslationUnit().Parse(tokenStream);
     }
 }

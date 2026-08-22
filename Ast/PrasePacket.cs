@@ -2,10 +2,9 @@ namespace Marey.Ast;
 
 using Marey.Lex;
 
-internal sealed class ParsePacket(List<Token> tokens)
+internal sealed class ParsePacket(TokenStream tokenStream)
 {
-    internal List<Token> Tokens { get; } = tokens;
-
+    internal TokenStream Tokens { get; } = tokenStream;
 
     internal int Progress { get; set; }
 
@@ -13,5 +12,5 @@ internal sealed class ParsePacket(List<Token> tokens)
 
     internal TokenKind Kind => Token.Kind;
 
-    internal TokenPos Pos => Token.Pos;
+    internal SourcePos Pos => Token.Pos;
 }

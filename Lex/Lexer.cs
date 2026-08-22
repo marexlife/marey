@@ -1,12 +1,30 @@
 namespace Marey.Lex;
 
-internal sealed class Lexer
+public class Lexer(string sourceCode)
 {
-    private List<Token> tokens = [];
+    private TokenStream tokens = [];
+    private string _lastWord = string.Empty;
+    private SourcePos sourcePos = new();
 
-    internal List<Token> Run()
+    public TokenStream Run()
     {
+        foreach (var sourceCodeChar in sourceCode)
+        {
+            switch (sourceCodeChar)
+            {
+                case ' ': Flush(); break;
+                case '\n': ++sourcePos.Line; break;
+                default: _lastWord += sourceCodeChar; break;
+            }
+        }
 
         return tokens;
+    }
+
+    private void Flush()
+    {
+        tokens.Add(new Token(sourcePos, _lastWord));
+
+        _lastWord = string.Empty;
     }
 }

@@ -1,11 +1,13 @@
+using Marey.Lex;
+
 namespace Marey.Ast;
 
-internal sealed class TranslationUnit : AstNode
+internal sealed class TranslationUnit
 {
     private ClassNode _classNode = new();
 
-    internal override void Parse(ParsePacket parsePacket)
+    internal void Parse(TokenStream tokenStream)
     {
-        _classNode.Parse(parsePacket);
+        _classNode.Parse(new ParsePacket(tokenStream));
     }
 }

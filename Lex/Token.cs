@@ -1,6 +1,6 @@
 namespace Marey.Lex;
 
-internal record struct Token(TokenPos Pos, string Lexeme)
+public record Token(SourcePos Pos, string Lexeme)
 {
     internal TokenKind Kind => Lexeme switch
     {
