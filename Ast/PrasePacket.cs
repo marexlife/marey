@@ -1,5 +1,7 @@
 namespace Marey.Ast;
 
+using Marey.Lex;
+
 internal sealed class ParsePacket
 {
     internal required List<Token> Tokens { get; init; }
