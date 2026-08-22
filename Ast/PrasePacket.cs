@@ -7,18 +7,11 @@ internal sealed class ParsePacket(List<Token> tokens)
     internal List<Token> Tokens { get; } = tokens;
 
 
-    internal int Progress { get; private set; }
+    internal int Progress { get; set; }
 
-
-    internal Token Token
-    {
-        get
-        {
-            ++Progress;
-
-            return Tokens[Progress];
-        }
-    }
+    internal Token Token => Tokens[Progress];
 
     internal TokenKind Kind => Token.TokenKind;
+
+    internal TokenPos Pos => Token.TokenPos;
 }

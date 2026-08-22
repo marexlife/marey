@@ -5,46 +5,59 @@ namespace Marey.Ast;
 
 internal sealed class MethodNode : ClassItem
 {
-    private List<InMethodNode> _inMethodNodes = [];
+    private readonly List<InMethodNode> _inMethodNodes = [];
     private string? functionName;
 
     internal override void Parse(ParsePacket packet)
+    {
+        ParseFuncSignature(packet);
+        ParseFuncBody(packet);
+    }
+
+    private void ParseFuncSignature(ParsePacket packet)
+    {
+        functionName = packet.Token.Lexeme;
+
+        if (packet.Token.TokenKind == TokenKind.OpenBracket)
+        {
+            ++packet.Progress;
+        }
+        else
+        {
+            throw new InvalidNodeException($"expected '(' here {packet.Token.TokenPos}");
+        }
+
+        if (packet.Token.TokenKind == TokenKind.CloseBracket)
+        {
+            ++packet.Progress;
+        }
+        else
+        {
+            throw new InvalidNodeException(
+                "arguments are not supported yet, put an ')' there"
+            );
+        }
+    }
+
+    private void ParseFuncBody(ParsePacket packet)
     {
         bool breakOut = false;
 
         while (!breakOut)
         {
-            functionName = packet.Token.Lexeme;
+            ParseFuncSignature(packet);
 
-            if (packet.Token.TokenKind != TokenKind.OpenBracket)
+            switch (packet.Kind)
             {
-                throw new InvalidNodeException("expected '(' here");
+                case TokenKind.Var: AddAndParseSubNode<VarDeclNode>(packet); break;
+                case TokenKind.EndBrace: breakOut = true; break;
+                case TokenKind.Fun:
+                    throw new InvalidNodeException(
+                    "Functions declared in methods are not supported");
+                default:
+                    throw new NotImplementedException();
             }
-
-            if (packet.Token.TokenKind != TokenKind.CloseBracket)
-            {
-                throw new InvalidNodeException(
-                    "arguments are not supported yet, put an ')' there"
-                );
-            }
-
-            Action action = packet.Kind switch
-            {
-                TokenKind.Var => () => AddAndParseSubNode<VarDeclNode>(packet),
-                TokenKind.EndBrace => () => breakOut = true,
-                TokenKind.Fun => throw new InvalidNodeException(
-                    "Functions declared in methods are not supported"
-                ),
-                _ => throw new NotImplementedException(),
-            };
-
-            action.Invoke();
         }
-    }
-
-    private void ProcessSignature()
-    {
-
     }
 
     private void AddAndParseSubNode<T>(ParsePacket packet) where T : InMethodNode
