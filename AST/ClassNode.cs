@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Marey;
+namespace Marey.AST;
 
 /// <summary>
 ///     One is automatically per file
@@ -9,18 +9,18 @@ internal sealed class ClassNode : ASTNode
 {
     private List<ClassItem> _classItems = [];
 
-    internal override void Parse(List<Token> tokens, ref int progress)
+    internal override void Parse(ParsePacket parsePacket)
     {
-        foreach (Token token in tokens)
+        for (int i = 0; i < parsePacket.Progress; ++i)
         {
-            ClassItem item = token.TokenKind switch
+            ClassItem item = parsePacket.CurrentTokenKind switch
             {
                 TokenKind.Fun => new MethodNode(),
                 TokenKind.Var => new FieldNode(),
                 _ => throw new UnreachableException(),
             };
 
-            item.Parse(tokens, ref progress);
+            item.Parse(parsePacket);
             _classItems.Add(item);
         }
 

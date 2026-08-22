@@ -1,6 +1,6 @@
-namespace Marey;
+namespace Marey.AST;
 
 internal abstract class ASTNode
 {
-    internal abstract void Parse(List<Token> tokens, ref int progress);
+    internal abstract void Parse(ParsePacket parsePacket);
 }

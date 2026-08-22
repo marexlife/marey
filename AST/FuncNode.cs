@@ -1,8 +1,8 @@
-namespace Marey;
+namespace Marey.AST;
 
 internal sealed class MethodNode : ClassItem
 {
-    internal override void Parse(List<Token> tokens, ref int progress)
+    internal override void Parse(ParsePacket parsePacket)
     {
         throw new NotImplementedException();
     }

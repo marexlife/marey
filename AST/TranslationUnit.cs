@@ -1,11 +1,11 @@
-namespace Marey;
+namespace Marey.AST;
 
 internal sealed class TranslationUnit : ASTNode
 {
     private ClassNode _classNode = new();
 
-    internal override void Parse(List<Token> tokens, ref int progress)
+    internal override void Parse(ParsePacket parsePacket)
     {
-        _classNode.Parse(tokens, ref progress);
+        _classNode.Parse(parsePacket);
     }
 }
