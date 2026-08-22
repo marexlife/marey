@@ -16,7 +16,7 @@ internal sealed class MethodNode : ClassItem
 
     private void ParseFuncSignature(ParsePacket packet)
     {
-        if (packet.Token.TokenKind == TokenKind.OpenBracket)
+        if (packet.Kind == TokenKind.OpenBracket)
         {
             ++packet.Progress;
 
@@ -24,21 +24,21 @@ internal sealed class MethodNode : ClassItem
         }
         else
         {
-            throw new InvalidTokenException(packet.Token.TokenPos, $"expected '('");
+            throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
         }
 
-        if (packet.Token.TokenKind == TokenKind.OpenBracket) ++packet.Progress;
-        else throw new InvalidTokenException(packet.Token.TokenPos, $"expected '('");
+        if (packet.Kind == TokenKind.OpenBracket) ++packet.Progress;
+        else throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
 
 
-        if (packet.Token.TokenKind == TokenKind.CloseBracket) ++packet.Progress;
+        if (packet.Kind == TokenKind.CloseBracket) ++packet.Progress;
         else throw new InvalidTokenException(
-                packet.Token.TokenPos, "')'"
+                packet.Pos, "')'"
         );
 
-        if (packet.Token.TokenKind == TokenKind.OpenBrace) ++packet.Progress;
+        if (packet.Kind == TokenKind.OpenBrace) ++packet.Progress;
         else throw new InvalidTokenException(
-                packet.Token.TokenPos, "expected '{'"
+                packet.Pos, "expected '{'"
         );
     }
 
@@ -56,7 +56,7 @@ internal sealed class MethodNode : ClassItem
                 case TokenKind.CloseBrace: breakOut = true; break;
                 case TokenKind.Fun:
                     throw new InvalidTokenException(
-                    packet.Token.TokenPos,
+                    packet.Token.Pos,
                     "Functions declared in methods are not supported");
                 default:
                     throw new NotImplementedException();

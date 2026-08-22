@@ -11,7 +11,7 @@ internal sealed class ParsePacket(List<Token> tokens)
 
     internal Token Token => Tokens[Progress];
 
-    internal TokenKind Kind => Token.TokenKind;
+    internal TokenKind Kind => Token.Kind;
 
-    internal TokenPos Pos => Token.TokenPos;
+    internal TokenPos Pos => Token.Pos;
 }

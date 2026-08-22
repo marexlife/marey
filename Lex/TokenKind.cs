@@ -3,6 +3,7 @@ namespace Marey.Lex;
 internal enum TokenKind : byte
 {
     None = 0,
+    Ident,
 
     // functions
     Fun,
