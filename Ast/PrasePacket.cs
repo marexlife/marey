@@ -2,9 +2,10 @@ namespace Marey.Ast;
 
 using Marey.Lex;
 
-internal sealed class ParsePacket
+internal sealed class ParsePacket(List<Token> tokens)
 {
-    internal required List<Token> Tokens { get; init; }
+    internal List<Token> Tokens { get; } = tokens;
+
     internal int TokenJumpCount
     {
         set
@@ -12,7 +13,8 @@ internal sealed class ParsePacket
             Progress += value;
         }
     }
-    internal int Progress { get; private set; }
+
+    internal int Progress { get; set; }
 
     internal Token Token => Tokens[Progress];
 

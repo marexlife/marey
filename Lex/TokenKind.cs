@@ -14,4 +14,6 @@ internal enum TokenKind : byte
 
     StartBrace,
     EndBrace,
+    OpenBracket,
+    CloseBracket,
 }

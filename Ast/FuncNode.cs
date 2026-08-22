@@ -6,6 +6,7 @@ namespace Marey.Ast;
 internal sealed class MethodNode : ClassItem
 {
     private List<InMethodNode> _inMethodNodes = [];
+    private string? functionName;
 
     internal override void Parse(ParsePacket packet)
     {
@@ -13,6 +14,8 @@ internal sealed class MethodNode : ClassItem
 
         while (!breakOut)
         {
+            
+
             Action action = packet.Kind switch
             {
                 TokenKind.Var => () => AddAndParseSubNode<VarDeclNode>(packet),

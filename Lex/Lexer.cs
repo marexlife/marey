@@ -6,7 +6,7 @@ internal sealed class Lexer
 
     internal List<Token> Run()
     {
-        
+
         return tokens;
     }
 }
