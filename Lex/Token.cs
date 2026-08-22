@@ -1,6 +1,6 @@
 namespace Marey.Lex;
 
-public record Token(SourcePos Pos, string Lexeme)
+internal sealed record Token(SourcePos Pos, string Lexeme)
 {
     internal TokenKind Kind => Lexeme switch
     {
@@ -11,6 +11,9 @@ public record Token(SourcePos Pos, string Lexeme)
         "fun" => TokenKind.Fun,
         "var" => TokenKind.Var,
         ";" => TokenKind.StatementEnd,
+        "float" => TokenKind.Float,
+        "bool" => TokenKind.Bool,
+        "int" => TokenKind.Int,
         _ => TokenKind.Ident,
     };
 }

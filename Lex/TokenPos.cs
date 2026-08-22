@@ -1,6 +1,6 @@
 namespace Marey.Lex;
 
-public record struct SourcePos(int Line, int Column)
+internal record struct SourcePos(int Line, int Column)
 {
     public override string ToString()
     {

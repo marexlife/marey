@@ -8,6 +8,21 @@ internal sealed class TranslationUnit
 
     internal void Parse(TokenStream tokenStream)
     {
-        _classNode.Parse(new ParsePacket(tokenStream));
+        try
+        {
+            _classNode.Parse(new ParsePacket(tokenStream));
+        }
+        catch (InvalidTokenException exception)
+        {
+            Console.WriteLine(exception.Message);
+        }
+        catch (NotYetSupportedException exception)
+        {
+            Console.WriteLine(exception.Message);
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine($"Internal Error: {exception}");
+        }
     }
 }

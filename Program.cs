@@ -7,7 +7,7 @@ internal static class Program
 {
     private static void Main()
     {
-        var sourceCode = "";
+        var sourceCode = "var x = 1;";
 
         var tokenStream = new Lexer(sourceCode).Run();
 

@@ -1,4 +1,4 @@
 namespace Marey.Lex;
 
-public class TokenStream : List<Token>;
+internal sealed class TokenStream : List<Token>;
 

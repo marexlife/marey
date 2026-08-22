@@ -17,4 +17,8 @@ internal enum TokenKind : byte
     CloseBrace,
     OpenBracket,
     CloseBracket,
+
+    Float,
+    Bool,
+    Int
 }
