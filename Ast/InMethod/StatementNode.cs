@@ -1,6 +1,6 @@
-namespace Marey.Ast;
+namespace Marey.Ast.InMethod;
 
-internal sealed class StatementNode : AstNode
+internal abstract class InMethodNode : AstNode
 {
     internal override void Parse(ParsePacket parsePacket)
     {
