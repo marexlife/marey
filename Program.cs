@@ -7,7 +7,7 @@ internal static class Program
 {
     private static void Main()
     {
-        var sourceCode = "var x: bool = true;";
+        var sourceCode = "fun main() { var x: bool = true; }";
 
         var tokenStream = new Lexer(sourceCode).Run();
 

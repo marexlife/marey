@@ -1,11 +1,12 @@
-using Marey.Ast.InMethod;
+using System.Diagnostics;
 using Marey.Lex;
+using Marey.Ast.Decls;
 
 namespace Marey.Ast;
 
-internal sealed class MethodNode : ClassItem
+internal sealed class FuncNode : ClassItem
 {
-    private readonly List<InMethodNode> _inMethodNodes = [];
+    private readonly List<Decl> _inMethodNodes = [];
     private string? functionName;
 
     internal override void Parse(ParsePacket packet)
@@ -16,13 +17,12 @@ internal sealed class MethodNode : ClassItem
 
     private void ParseFuncSignature(ParsePacket packet)
     {
+        packet.AdvanceIfEqual(TokenKind.Fun);
         functionName = packet.AdvanceIfEqual().Lexeme;
 
-        packet.AdvanceIfEqual([
-            TokenKind.OpenBracket,
-            TokenKind.CloseBracket,
-            TokenKind.OpenBrace
-        ]);
+        packet.AdvanceIfEqual(TokenKind.OpenBracket);
+        packet.AdvanceIfEqual(TokenKind.CloseBracket);
+        packet.AdvanceIfEqual(TokenKind.OpenBrace);
     }
 
     private void ParseFuncBody(ParsePacket packet)
@@ -33,21 +33,21 @@ internal sealed class MethodNode : ClassItem
         {
             switch (packet.Kind)
             {
-                case TokenKind.Var: AddAndParseSubNode<VarDeclNode>(packet); break;
+                case TokenKind.Var: AddAndParseSubNode<LocalVarDeclNode>(packet); break;
                 case TokenKind.CloseBrace: breakOut = true; break;
                 case TokenKind.Fun:
                     throw new InvalidTokenException(
                     packet.Token.Pos,
                     "Functions declared in methods are not supported");
                 default:
-                    throw new NotImplementedException();
+                    throw new UnreachableException();
             }
         }
     }
 
-    private void AddAndParseSubNode<T>(ParsePacket packet) where T : InMethodNode
+    private void AddAndParseSubNode<T>(ParsePacket packet) where T : Decl
     {
-        var newInMethodNode = new VarDeclNode();
+        var newInMethodNode = new LocalVarDeclNode();
 
         newInMethodNode.Parse(packet);
 

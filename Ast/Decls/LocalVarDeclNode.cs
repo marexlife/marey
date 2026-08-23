@@ -1,6 +1,6 @@
-namespace Marey.Ast.InMethod;
+namespace Marey.Ast.Decls;
 
-internal sealed class VarDeclNode : InMethodNode
+internal sealed class LocalVarDeclNode : Decl
 {
     internal override void Parse(ParsePacket parsePacket)
     {

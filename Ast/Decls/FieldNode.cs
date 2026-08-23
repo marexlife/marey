@@ -1,6 +1,6 @@
 using Marey.Lex;
 
-namespace Marey.Ast;
+namespace Marey.Ast.Decls;
 
 internal sealed class FieldNode : ClassItem
 {

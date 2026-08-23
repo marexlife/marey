@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Marey.Ast.Decls;
 using Marey.Lex;
 
 namespace Marey.Ast;
@@ -14,7 +15,7 @@ internal sealed class ClassNode : AstNode
     {
         ClassItem classItem = packet.Kind switch
         {
-            TokenKind.Fun => new MethodNode(),
+            TokenKind.Fun => new FuncNode(),
             TokenKind.Var => new FieldNode(),
             _ => throw new UnreachableException(),
         };

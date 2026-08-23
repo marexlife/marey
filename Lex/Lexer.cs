@@ -16,7 +16,7 @@ public class Lexer(string sourceCode)
                 case ' ':
                     Flush();
                     break;
-                case ';' or ':':
+                case ';' or ':' or '{' or '}' or '(' or ')':
                     FlushAndAdd(sourceCodeChar);
                     break;
                 case '\n':
