@@ -25,4 +25,9 @@ internal sealed class TranslationUnit
             Console.WriteLine($"Internal Error: {exception}");
         }
     }
+
+    internal void Emit()
+    {
+        _classNode.Emit();
+    }
 }

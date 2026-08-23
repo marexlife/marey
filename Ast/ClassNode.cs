@@ -12,7 +12,7 @@ internal sealed class ClassNode
     private List<IAstNodeItem> _classItems = [];
     private string? _parentClassName;
 
-    internal string Emit()
+    internal void Emit(out string target)
     {
         throw new NotImplementedException();
     }
