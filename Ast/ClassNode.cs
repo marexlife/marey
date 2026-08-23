@@ -18,14 +18,23 @@ internal sealed class ClassNode : IParseable
         _parentClassName = packet.AdvanceIfEqual(TokenKind.Ident);
         packet.AdvanceIfEqual(TokenKind.StatementEnd);
 
-        IClassItem classItem = packet.Kind switch
+        while (!packet.IsFinished)
         {
-            TokenKind.Fun => new FuncNode(),
-            TokenKind.Var => new FieldNode(),
-            _ => throw new UnreachableException(),
-        };
+            var currentKind = packet.Kind.FromEnumToString();
 
-        classItem.Parse(packet);
-        _classItems.Add(classItem);
+            Console.WriteLine($"Current Kind: {currentKind}");
+
+            IClassItem classItem = packet.Kind switch
+            {
+                TokenKind.Fun => new FuncNode(),
+                TokenKind.Var => new FieldNode(),
+                _ => throw new UnreachableException(
+                    $"Kind was: {currentKind}"
+                ),
+            };
+
+            classItem.Parse(packet);
+            _classItems.Add(classItem);
+        }
     }
 }

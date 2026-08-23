@@ -10,6 +10,8 @@ internal static class Program
         var sourceCode = """
         extends Object;
 
+        var y: bool = true;
+        
         def update() {
             var x: bool = true;
         }

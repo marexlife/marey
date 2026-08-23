@@ -34,7 +34,7 @@ internal sealed class FuncNode : IClassItem
             switch (packet.Kind)
             {
                 case TokenKind.Var: AddAndParseSubNode<LocalVarDeclNode>(packet); break;
-                case TokenKind.CloseBrace: breakOut = true; break;
+                case TokenKind.CloseBrace: breakOut = true; packet.Advance(); break;
                 case TokenKind.Fun:
                     throw new InvalidTokenException(
                     packet.Token.Pos,

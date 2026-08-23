@@ -17,5 +17,7 @@ internal sealed class FieldNode : Decl, IClassItem
         packet.AdvanceIfEqual([TokenKind.Colon, TokenKind.Bool, TokenKind.Assignment]);
         packet.AdvanceIfEqual();
         packet.AdvanceIfEqual(TokenKind.StatementEnd);
+
+        Console.WriteLine("Success Bool parsing");
     }
 }
