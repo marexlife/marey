@@ -4,6 +4,6 @@ internal sealed class LocalVarDeclNode : Decl
 {
     internal override void Parse(ParsePacket parsePacket)
     {
-        throw new NotImplementedException();
+        
     }
 }
