@@ -14,6 +14,8 @@ internal sealed class ClassNode
 
     internal void Emit(EmitPack pack)
     {
+        pack.Add(_parentClassName!);
+
         foreach (var classItem in _classItems)
         {
             classItem.Emit(pack);
