@@ -26,8 +26,8 @@ internal sealed class TranslationUnit
         }
     }
 
-    internal void Emit()
+    internal void Emit(EmitPack pack)
     {
-        _classNode.Emit();
+        _classNode.Emit(pack);
     }
 }

@@ -75,9 +75,8 @@ internal sealed class FuncNode : IAstNodeItem
         ParseFuncBody(packet);
     }
 
-    string IAstNode.Emit()
+    void IAstNode.Emit(EmitPack pack)
     {
-
         throw new NotImplementedException();
     }
 }

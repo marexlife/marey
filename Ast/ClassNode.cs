@@ -12,9 +12,12 @@ internal sealed class ClassNode
     private List<IAstNodeItem> _classItems = [];
     private string? _parentClassName;
 
-    internal void Emit(out string target)
+    internal void Emit(EmitPack pack)
     {
-        throw new NotImplementedException();
+        foreach (var classItem in _classItems)
+        {
+            classItem.Emit(pack);
+        }
     }
 
     internal void Parse(ParsePacket packet)

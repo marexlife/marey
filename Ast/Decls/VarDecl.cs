@@ -8,7 +8,7 @@ internal sealed class VarDecl : IAstNodeItem
     private string? _valueString;
     private TypeKind? _varNodeKind;
 
-    string IAstNode.Emit()
+    void IAstNode.Emit(EmitPack pack)
     {
         throw new NotImplementedException();
     }
