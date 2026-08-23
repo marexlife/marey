@@ -6,7 +6,7 @@ namespace Marey.Ast;
 
 internal sealed class FuncNode : IClassItem
 {
-    private readonly List<Decl> _inMethodNodes = [];
+    private readonly List<VarDecl> _inMethodNodes = [];
     private string? functionName;
 
     public void Parse(ParsePacket packet)
@@ -45,7 +45,7 @@ internal sealed class FuncNode : IClassItem
         }
     }
 
-    private void AddAndParseSubNode<T>(ParsePacket packet) where T : Decl
+    private void AddAndParseSubNode<T>(ParsePacket packet) where T : VarDecl
     {
         var newInMethodNode = new LocalVarDeclNode();
 

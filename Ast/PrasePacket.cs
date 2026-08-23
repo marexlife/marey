@@ -11,6 +11,7 @@ internal sealed class ParsePacket(TokenStream tokenStream)
     internal bool IsFinished => Progress >= Tokens.Count;
     internal void Advance() => ++Progress;
 
+
     internal void AdvanceIfEqual(TokenKind[] comparers)
     {
         foreach (var comparer in comparers)

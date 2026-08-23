@@ -11,7 +11,7 @@ internal static class Program
         extends Object;
 
         var y: bool = true;
-        
+
         def update() {
             var x: bool = true;
         }
