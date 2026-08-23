@@ -16,12 +16,13 @@ public class Lexer(string sourceCode)
                 case ';' or ':':
                     FlushAndAdd(sourceCodeChar);
                     break;
-                case '\n': ++sourcePos.Line; break;
+                case '\n': ++sourcePos.Line; continue;
                 default:
                     _lastWord += sourceCodeChar;
-                    ++sourcePos.Column;
                     break;
             }
+
+            ++sourcePos.Column;
         }
 
         return tokens;
