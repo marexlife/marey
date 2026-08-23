@@ -17,6 +17,7 @@ internal static class KeywordConfig
         new("float", TokenKind.Float),
         new("bool", TokenKind.Bool),
         new("int", TokenKind.Int),
+        new("extends", TokenKind.Extends)
     ];
 
     internal static TokenKind MapStringToTokenKind(string input)

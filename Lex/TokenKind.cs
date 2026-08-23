@@ -23,5 +23,6 @@ internal enum TokenKind : byte
 
     Float,
     Bool,
-    Int
+    Int,
+    Extends,
 }
