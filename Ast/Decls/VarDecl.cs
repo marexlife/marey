@@ -6,7 +6,7 @@ internal sealed class VarDecl : IAstNodeItem
 {
     private string? _declName;
     private string? _valueString;
-    private VarNodeKind? _varNodeKind;
+    private TypeKind? _varNodeKind;
 
     string IAstNode.Emit()
     {
@@ -21,9 +21,9 @@ internal sealed class VarDecl : IAstNodeItem
 
         _varNodeKind = packet.Kind switch
         {
-            TokenKind.Bool => VarNodeKind.Bool,
-            TokenKind.Int => VarNodeKind.Int,
-            TokenKind.Float => VarNodeKind.Float,
+            TokenKind.Bool => TypeKind.Bool,
+            TokenKind.Int => TypeKind.Int,
+            TokenKind.Float => TypeKind.Float,
             _ => throw new InvalidTokenException(packet.Pos, "Invalid Type"),
         };
 

@@ -1,8 +1,6 @@
-using System.Diagnostics;
-
 namespace Marey.Lex;
 
-internal static class TokenKindExtension
+internal static partial class TokenKindExtension
 {
     extension(TokenKind self)
     {

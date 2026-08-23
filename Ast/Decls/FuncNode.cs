@@ -7,17 +7,32 @@ namespace Marey.Ast;
 internal sealed class FuncNode : IAstNodeItem
 {
     private readonly List<IAstNodeItem> _inMethodNodes = [];
-    private string? functionName;
-
+    private string? _functionName;
+    private TypeKind? _returnType;
 
     private void ParseFuncSignature(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Fun);
-        functionName = packet.AdvanceIfEqual();
+        _functionName = packet.AdvanceIfEqual();
 
         packet.AdvanceIfEqual(TokenKind.OpenBracket);
         packet.AdvanceIfEqual(TokenKind.CloseBracket);
-        packet.AdvanceIfEqual(TokenKind.OpenBrace);
+
+        switch (packet.Kind)
+        {
+            case TokenKind.Colon:
+                packet.Advance();
+                _returnType = packet.Kind.ConvertToType(packet);
+                packet.Advance();
+                packet.AdvanceIfEqual(TokenKind.OpenBrace);
+                break;
+            case TokenKind.OpenBrace:
+                packet.Advance();
+                break;
+            default:
+                throw new InvalidTokenException(packet.Pos,
+                    "expected { or : after function's");
+        }
     }
 
     private void ParseFuncBody(ParsePacket packet)
@@ -62,6 +77,7 @@ internal sealed class FuncNode : IAstNodeItem
 
     string IAstNode.Emit()
     {
+
         throw new NotImplementedException();
     }
 }

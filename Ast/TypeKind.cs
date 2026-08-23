@@ -1,6 +1,6 @@
 namespace Marey.Ast.Decls;
 
-internal enum VarNodeKind : byte
+internal enum TypeKind : byte
 {
     None = 0,
     Float,
