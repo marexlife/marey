@@ -10,7 +10,7 @@ internal sealed class TranslationUnit
     {
         try
         {
-            _classNode.Parse(new ParsePacket(tokenStream));
+            _classNode.Parse(new ParsePack(tokenStream));
         }
         catch (InvalidTokenException exception)
         {

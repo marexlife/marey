@@ -13,7 +13,7 @@ internal sealed class VarDecl : IAstNodeItem
         throw new NotImplementedException();
     }
 
-    void IAstNode.Parse(ParsePacket packet)
+    void IAstNode.Parse(ParsePack packet)
     {
         packet.AdvanceIfEqual(TokenKind.Var);
         _declName = packet.AdvanceIfEqual();

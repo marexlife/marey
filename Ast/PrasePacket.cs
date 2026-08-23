@@ -2,7 +2,7 @@ namespace Marey.Ast;
 
 using Marey.Lex;
 
-internal sealed class ParsePacket(TokenStream tokenStream)
+internal sealed class ParsePack(TokenStream tokenStream)
 {
     internal TokenStream Tokens { get; } = tokenStream;
 

@@ -10,7 +10,7 @@ internal sealed class FuncNode : IAstNodeItem
     private string? _functionName;
     private TypeKind? _returnType;
 
-    private void ParseFuncSignature(ParsePacket packet)
+    private void ParseFuncSignature(ParsePack packet)
     {
         packet.AdvanceIfEqual(TokenKind.Fun);
         _functionName = packet.AdvanceIfEqual();
@@ -35,7 +35,7 @@ internal sealed class FuncNode : IAstNodeItem
         }
     }
 
-    private void ParseFuncBody(ParsePacket packet)
+    private void ParseFuncBody(ParsePack packet)
     {
         bool breakOut = false;
 
@@ -60,7 +60,7 @@ internal sealed class FuncNode : IAstNodeItem
         }
     }
 
-    private void AddAndParseSubNode<T>(ParsePacket packet) where T : IAstNodeItem, new()
+    private void AddAndParseSubNode<T>(ParsePack packet) where T : IAstNodeItem, new()
     {
         var newInMethodNode = new T();
 
@@ -69,7 +69,7 @@ internal sealed class FuncNode : IAstNodeItem
         _inMethodNodes.Add(newInMethodNode);
     }
 
-    void IAstNode.Parse(ParsePacket packet)
+    void IAstNode.Parse(ParsePack packet)
     {
         ParseFuncSignature(packet);
         ParseFuncBody(packet);

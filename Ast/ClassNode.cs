@@ -20,7 +20,7 @@ internal sealed class ClassNode
         }
     }
 
-    internal void Parse(ParsePacket packet)
+    internal void Parse(ParsePack packet)
     {
         packet.AdvanceIfEqual(TokenKind.Extends);
         _parentClassName = packet.AdvanceIfEqual(TokenKind.Ident);
