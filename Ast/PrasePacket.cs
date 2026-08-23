@@ -10,9 +10,19 @@ internal sealed class ParsePacket(TokenStream tokenStream)
 
     internal void Advance() => ++Progress;
 
-    internal Token AdvanceIfEqual(TokenKind tokenKind)
+    internal void ForAdvanceIfEqual(string[] comparers)
     {
-        if (Kind == tokenKind)
+        foreach (var comparer in comparers)
+        {
+            AdvanceIfEqual(comparer);
+        }
+    }
+
+    internal Token AdvanceIfEqual(string comparer)
+    {
+        TokenContent tokenContent = new(comparer);
+
+        if (Kind == tokenContent.Kind)
         {
             var preAdvanceToken = Token;
 
@@ -23,7 +33,24 @@ internal sealed class ParsePacket(TokenStream tokenStream)
         else
         {
             throw new InvalidTokenException(
-                Pos, $"expected {tokenKind}, got {Token.Lexeme}");
+                Pos, $"expected {tokenContent.Lexeme}, got {Token.Lexeme}");
+        }
+    }
+
+    internal Token AdvanceIfEqual()
+    {
+        if (Kind == TokenKind.Ident)
+        {
+            var preAdvanceToken = Token;
+
+            Advance();
+
+            return preAdvanceToken;
+        }
+        else
+        {
+            throw new InvalidTokenException(
+                Pos, $"expected identifier, got {Token.Lexeme}");
         }
     }
 

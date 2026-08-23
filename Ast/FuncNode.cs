@@ -16,22 +16,9 @@ internal sealed class MethodNode : ClassItem
 
     private void ParseFuncSignature(ParsePacket packet)
     {
-        if (packet.Kind == TokenKind.Ident)
-        {
-            ++packet.Progress;
+        functionName = packet.AdvanceIfEqual().Lexeme;
 
-            functionName = packet.Token.Lexeme;
-        }
-        else throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
-
-        functionName = packet.AdvanceIfEqual(new TokenContent());
-        packet.AdvanceIfEqual(new TokenContent("{"));
-
-        if (packet.Kind == TokenKind.CloseBracket) ++packet.Progress;
-        else throw new InvalidTokenException(packet.Pos, "')'");
-
-        if (packet.Kind == TokenKind.OpenBrace) ++packet.Progress;
-        else throw new InvalidTokenException(packet.Pos, "expected '{'");
+        packet.ForAdvanceIfEqual(["(", ")", "{"]);
     }
 
     private void ParseFuncBody(ParsePacket packet)
@@ -40,8 +27,6 @@ internal sealed class MethodNode : ClassItem
 
         while (!breakOut)
         {
-            ParseFuncSignature(packet);
-
             switch (packet.Kind)
             {
                 case TokenKind.Var: AddAndParseSubNode<VarDeclNode>(packet); break;

@@ -2,7 +2,7 @@ namespace Marey.Lex;
 
 internal sealed record TokenContent(string Lexeme, TokenKind Kind)
 {
-    public TokenContent(string lexeme) : this(lexeme, LexemeToKind(lexeme))
+    internal TokenContent(string lexeme) : this(lexeme, LexemeToKind(lexeme))
     {
     }
 
