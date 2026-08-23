@@ -1,6 +1,6 @@
 namespace Marey.Lex;
 
-public class Lexer(string sourceCode)
+internal sealed class Lexer(string sourceCode)
 {
     private TokenStream tokens = [];
     private string _lastWord = string.Empty;
