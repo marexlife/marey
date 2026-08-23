@@ -18,7 +18,10 @@ public class Lexer(string sourceCode)
                     tokens.Add(new Token(sourcePos, ";"));
                     break;
                 case '\n': ++sourcePos.Line; break;
-                default: _lastWord += sourceCodeChar; break;
+                default:
+                    _lastWord += sourceCodeChar;
+                    ++sourcePos.Column;
+                    break;
             }
         }
 
