@@ -5,6 +5,7 @@ public class Lexer(string sourceCode)
     private TokenStream tokens = [];
     private string _lastWord = string.Empty;
     private SourcePos sourcePos = new();
+    private bool _isContentToFlushAvailable = false;
 
     internal TokenStream Run()
     {
@@ -12,13 +13,19 @@ public class Lexer(string sourceCode)
         {
             switch (sourceCodeChar)
             {
-                case ' ': Flush(); break;
+                case ' ':
+                    Flush();
+                    break;
                 case ';' or ':':
                     FlushAndAdd(sourceCodeChar);
                     break;
-                case '\n': ++sourcePos.Line; continue;
+                case '\n':
+                    Flush();
+                    ++sourcePos.Line;
+                    continue;
                 default:
                     _lastWord += sourceCodeChar;
+                    _isContentToFlushAvailable = true;
                     break;
             }
 
@@ -39,8 +46,11 @@ public class Lexer(string sourceCode)
 
     private void Flush()
     {
+        if (!_isContentToFlushAvailable) return;
+
         tokens.Add(new Token(sourcePos, _lastWord));
 
         _lastWord = string.Empty;
+        _isContentToFlushAvailable = false;
     }
 }
