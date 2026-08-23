@@ -22,8 +22,6 @@ internal sealed class ClassNode : IParseable
         {
             var currentKind = packet.Kind.FromEnumToString();
 
-            Console.WriteLine($"Current Kind: {currentKind}");
-
             IClassItem classItem = packet.Kind switch
             {
                 TokenKind.Fun => new FuncNode(),
