@@ -13,7 +13,7 @@ internal sealed class LocalVarDeclNode : Decl
     private void ParseBool(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Var);
-        packet.AdvanceIfEqual();
+        DeclName = packet.AdvanceIfEqual().Lexeme;
         packet.AdvanceIfEqual([TokenKind.Colon, TokenKind.Bool, TokenKind.Assignment]);
         packet.AdvanceIfEqual();
         packet.AdvanceIfEqual(TokenKind.StatementEnd);
