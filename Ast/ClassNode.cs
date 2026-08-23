@@ -7,13 +7,13 @@ namespace Marey.Ast;
 /// <summary>
 ///     One is automatically per file
 /// </summary>
-internal sealed class ClassNode : AstNode
+internal sealed class ClassNode : IParseable
 {
-    private List<ClassItem> _classItems = [];
+    private List<IClassItem> _classItems = [];
 
-    internal override void Parse(ParsePacket packet)
+    public void Parse(ParsePacket packet)
     {
-        ClassItem classItem = packet.Kind switch
+        IClassItem classItem = packet.Kind switch
         {
             TokenKind.Fun => new FuncNode(),
             TokenKind.Var => new FieldNode(),

@@ -4,12 +4,12 @@ using Marey.Ast.Decls;
 
 namespace Marey.Ast;
 
-internal sealed class FuncNode : ClassItem
+internal sealed class FuncNode : IClassItem
 {
     private readonly List<Decl> _inMethodNodes = [];
     private string? functionName;
 
-    internal override void Parse(ParsePacket packet)
+    public void Parse(ParsePacket packet)
     {
         ParseFuncSignature(packet);
         ParseFuncBody(packet);

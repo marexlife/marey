@@ -1,3 +1,3 @@
 namespace Marey.Ast;
 
-internal abstract class ClassItem : AstNode;
+internal interface IClassItem : IParseable;

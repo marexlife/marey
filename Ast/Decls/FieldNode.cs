@@ -2,9 +2,9 @@ using Marey.Lex;
 
 namespace Marey.Ast.Decls;
 
-internal sealed class FieldNode : ClassItem
+internal sealed class FieldNode : Decl, IClassItem
 {
-    internal override void Parse(ParsePacket packet)
+    public override void Parse(ParsePacket packet)
     {
         ParseBool(packet);
     }
@@ -13,7 +13,7 @@ internal sealed class FieldNode : ClassItem
     private void ParseBool(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Var);
-        packet.AdvanceIfEqual();
+        DeclName = packet.AdvanceIfEqual().Lexeme;
         packet.AdvanceIfEqual([TokenKind.Colon, TokenKind.Bool, TokenKind.Assignment]);
         packet.AdvanceIfEqual();
         packet.AdvanceIfEqual(TokenKind.StatementEnd);
