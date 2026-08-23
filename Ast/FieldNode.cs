@@ -8,11 +8,18 @@ internal sealed class FieldNode : ClassItem
 
     internal override void Parse(ParsePacket packet)
     {
-        packet.AdvanceIfEqual("var");
+        ParseBool(packet);
+    }
+
+    // is for the start, not final
+    private void ParseBool(ParsePacket packet)
+    {
+        packet.AdvanceIfEqual(TokenKind.Var);
         packet.AdvanceIfEqual();
-        packet.AdvanceIfEqual(":");
-        packet.AdvanceIfEqual("=");
+        packet.AdvanceIfEqual(TokenKind.Colon);
+        packet.AdvanceIfEqual(TokenKind.Bool);
+        packet.AdvanceIfEqual(TokenKind.Assignment);
         packet.AdvanceIfEqual();
-        packet.AdvanceIfEqual(";");
+        packet.AdvanceIfEqual(TokenKind.StatementEnd);
     }
 }

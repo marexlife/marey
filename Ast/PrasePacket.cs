@@ -18,6 +18,8 @@ internal sealed class ParsePacket(TokenStream tokenStream)
         }
     }
 
+    internal bool IsEqual(TokenKind comparer) => Kind == comparer;
+
     internal Token AdvanceIfEqual(TokenKind comparer = TokenKind.Ident)
     {
         if (Kind == comparer)
