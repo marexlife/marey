@@ -7,17 +7,17 @@ namespace Marey.Ast;
 /// <summary>
 ///     One is automatically per file
 /// </summary>
-internal sealed class ClassNode : IAstNode
+internal sealed class ClassNode
 {
-    private List<IClassItem> _classItems = [];
+    private List<IAstNodeItem> _classItems = [];
     private string? _parentClassName;
 
-    string IAstNode.Emit()
+    internal string Emit()
     {
         throw new NotImplementedException();
     }
 
-    void IAstNode.Parse(ParsePacket packet)
+    internal void Parse(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Extends);
         _parentClassName = packet.AdvanceIfEqual(TokenKind.Ident);
@@ -27,10 +27,10 @@ internal sealed class ClassNode : IAstNode
         {
             var currentKind = packet.Kind.FromEnumToString();
 
-            IClassItem classItem = packet.Kind switch
+            IAstNodeItem classItem = packet.Kind switch
             {
                 TokenKind.Fun => new FuncNode(),
-                TokenKind.Var => new FieldNode(),
+                TokenKind.Var => new VarDecl(),
                 _ => throw new UnreachableException(
                     $"Kind was: {currentKind}"
                 ),
