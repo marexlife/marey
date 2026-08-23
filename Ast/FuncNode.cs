@@ -18,7 +18,7 @@ internal sealed class MethodNode : ClassItem
     {
         functionName = packet.AdvanceIfEqual().Lexeme;
 
-        packet.ForAdvanceIfEqual([
+        packet.AdvanceIfEqual([
             TokenKind.OpenBracket,
             TokenKind.CloseBracket,
             TokenKind.OpenBrace

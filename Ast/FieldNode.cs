@@ -16,9 +16,7 @@ internal sealed class FieldNode : ClassItem
     {
         packet.AdvanceIfEqual(TokenKind.Var);
         packet.AdvanceIfEqual();
-        packet.AdvanceIfEqual(TokenKind.Colon);
-        packet.AdvanceIfEqual(TokenKind.Bool);
-        packet.AdvanceIfEqual(TokenKind.Assignment);
+        packet.AdvanceIfEqual([TokenKind.Colon, TokenKind.Bool, TokenKind.Assignment]);
         packet.AdvanceIfEqual();
         packet.AdvanceIfEqual(TokenKind.StatementEnd);
     }

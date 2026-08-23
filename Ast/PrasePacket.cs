@@ -10,7 +10,7 @@ internal sealed class ParsePacket(TokenStream tokenStream)
 
     internal void Advance() => ++Progress;
 
-    internal void ForAdvanceIfEqual(TokenKind[] comparers)
+    internal void AdvanceIfEqual(TokenKind[] comparers)
     {
         foreach (var comparer in comparers)
         {
