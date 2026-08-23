@@ -20,17 +20,17 @@ internal sealed class ClassNode
         }
     }
 
-    internal void Parse(ParsePack packet)
+    internal void Parse(ParsePack pack)
     {
-        packet.AdvanceIfEqual(TokenKind.Extends);
-        _parentClassName = packet.AdvanceIfEqual(TokenKind.Ident);
-        packet.AdvanceIfEqual(TokenKind.StatementEnd);
+        pack.AdvanceIfEqual(TokenKind.Extends);
+        _parentClassName = pack.AdvanceIfEqual(TokenKind.Ident);
+        pack.AdvanceIfEqual(TokenKind.StatementEnd);
 
-        while (!packet.IsFinished)
+        while (!pack.IsFinished)
         {
-            var currentKind = packet.Kind.FromEnumToString();
+            var currentKind = pack.Kind.FromEnumToString();
 
-            IAstNodeItem classItem = packet.Kind switch
+            IAstNodeItem classItem = pack.Kind switch
             {
                 TokenKind.Fun => new FuncNode(),
                 TokenKind.Var => new VarDecl(),
@@ -39,7 +39,7 @@ internal sealed class ClassNode
                 ),
             };
 
-            classItem.Parse(packet);
+            classItem.Parse(pack);
             _classItems.Add(classItem);
         }
     }
