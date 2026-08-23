@@ -4,8 +4,6 @@ namespace Marey.Ast;
 
 internal sealed class FieldNode : ClassItem
 {
-    private FieldNodeKind? _fieldNodeKind = null;
-
     internal override void Parse(ParsePacket packet)
     {
         ParseBool(packet);
