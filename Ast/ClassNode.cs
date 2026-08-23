@@ -7,12 +7,17 @@ namespace Marey.Ast;
 /// <summary>
 ///     One is automatically per file
 /// </summary>
-internal sealed class ClassNode : IParseable
+internal sealed class ClassNode : IAstNode
 {
     private List<IClassItem> _classItems = [];
     private string? _parentClassName;
 
-    public void Parse(ParsePacket packet)
+    string IAstNode.Emit()
+    {
+        throw new NotImplementedException();
+    }
+
+    void IAstNode.Parse(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Extends);
         _parentClassName = packet.AdvanceIfEqual(TokenKind.Ident);

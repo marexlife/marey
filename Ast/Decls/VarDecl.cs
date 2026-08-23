@@ -2,13 +2,18 @@ using Marey.Lex;
 
 namespace Marey.Ast.Decls;
 
-internal abstract class VarDecl : IParseable
+internal sealed class VarDecl : IAstNodeItem
 {
     private string? _declName;
     private string? _valueString;
     private VarNodeKind? _varNodeKind;
 
-    public virtual void Parse(ParsePacket packet)
+    string IAstNode.Emit()
+    {
+        throw new NotImplementedException();
+    }
+
+    void IAstNode.Parse(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Var);
         _declName = packet.AdvanceIfEqual();

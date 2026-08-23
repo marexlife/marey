@@ -1,6 +1,7 @@
 namespace Marey.Ast;
 
-internal interface IParseable
+internal interface IAstNode
 {
     internal void Parse(ParsePacket parsePacket);
+    internal string Emit();
 }

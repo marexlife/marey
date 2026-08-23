@@ -4,16 +4,11 @@ using Marey.Ast.Decls;
 
 namespace Marey.Ast;
 
-internal sealed class FuncNode : IClassItem
+internal sealed class FuncNode : IAstNodeItem
 {
-    private readonly List<VarDecl> _inMethodNodes = [];
+    private readonly List<IAstNodeItem> _inMethodNodes = [];
     private string? functionName;
 
-    public void Parse(ParsePacket packet)
-    {
-        ParseFuncSignature(packet);
-        ParseFuncBody(packet);
-    }
 
     private void ParseFuncSignature(ParsePacket packet)
     {
@@ -33,8 +28,13 @@ internal sealed class FuncNode : IClassItem
         {
             switch (packet.Kind)
             {
-                case TokenKind.Var: AddAndParseSubNode<LocalVarDeclNode>(packet); break;
-                case TokenKind.CloseBrace: breakOut = true; packet.Advance(); break;
+                case TokenKind.Var:
+                    AddAndParseSubNode<VarDecl>(packet);
+                    break;
+                case TokenKind.CloseBrace:
+                    breakOut = true;
+                    packet.Advance();
+                    break;
                 case TokenKind.Fun:
                     throw new InvalidTokenException(
                     packet.Token.Pos,
@@ -45,12 +45,23 @@ internal sealed class FuncNode : IClassItem
         }
     }
 
-    private void AddAndParseSubNode<T>(ParsePacket packet) where T : VarDecl
+    private void AddAndParseSubNode<T>(ParsePacket packet) where T : IAstNodeItem, new()
     {
-        var newInMethodNode = new LocalVarDeclNode();
+        var newInMethodNode = new T();
 
         newInMethodNode.Parse(packet);
 
         _inMethodNodes.Add(newInMethodNode);
+    }
+
+    void IAstNode.Parse(ParsePacket packet)
+    {
+        ParseFuncSignature(packet);
+        ParseFuncBody(packet);
+    }
+
+    string IAstNode.Emit()
+    {
+        throw new NotImplementedException();
     }
 }
