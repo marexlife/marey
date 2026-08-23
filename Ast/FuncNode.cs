@@ -16,7 +16,7 @@ internal sealed class MethodNode : ClassItem
 
     private void ParseFuncSignature(ParsePacket packet)
     {
-        if (packet.Kind == TokenKind.OpenBracket)
+        if (packet.Kind == TokenKind.Ident)
         {
             ++packet.Progress;
 
@@ -24,7 +24,8 @@ internal sealed class MethodNode : ClassItem
         }
         else throw new InvalidTokenException(packet.Token.Pos, $"expected '('");
 
-        packet.AdvanceIfEqual(TokenKind.OpenBracket);
+        functionName = packet.AdvanceIfEqual(new TokenContent());
+        packet.AdvanceIfEqual(new TokenContent("{"));
 
         if (packet.Kind == TokenKind.CloseBracket) ++packet.Progress;
         else throw new InvalidTokenException(packet.Pos, "')'");
