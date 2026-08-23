@@ -15,7 +15,7 @@ internal sealed class ClassNode : IParseable
     public void Parse(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Extends);
-        _parentClassName = packet.AdvanceIfEqual(TokenKind.Ident).Lexeme;
+        _parentClassName = packet.AdvanceIfEqual(TokenKind.Ident);
         packet.AdvanceIfEqual(TokenKind.StatementEnd);
 
         IClassItem classItem = packet.Kind switch

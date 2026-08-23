@@ -18,7 +18,7 @@ internal sealed class FuncNode : IClassItem
     private void ParseFuncSignature(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Fun);
-        functionName = packet.AdvanceIfEqual().Lexeme;
+        functionName = packet.AdvanceIfEqual();
 
         packet.AdvanceIfEqual(TokenKind.OpenBracket);
         packet.AdvanceIfEqual(TokenKind.CloseBracket);

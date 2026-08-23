@@ -20,7 +20,7 @@ internal sealed class ParsePacket(TokenStream tokenStream)
 
     internal bool IsEqual(TokenKind comparer) => Kind == comparer;
 
-    internal Token AdvanceIfEqual(TokenKind comparer = TokenKind.Ident)
+    internal string AdvanceIfEqual(TokenKind comparer = TokenKind.Ident)
     {
         if (Kind == comparer)
         {
@@ -28,7 +28,7 @@ internal sealed class ParsePacket(TokenStream tokenStream)
 
             Advance();
 
-            return preAdvanceToken;
+            return preAdvanceToken.Lexeme;
         }
         else
         {

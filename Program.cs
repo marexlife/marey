@@ -10,8 +10,6 @@ internal static class Program
         var sourceCode = """
         extends Object;
 
-        var is_alive: bool = true;
-        
         def update() {
             var x: bool = true;
         }
