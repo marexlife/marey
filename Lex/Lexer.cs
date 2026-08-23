@@ -13,9 +13,8 @@ public class Lexer(string sourceCode)
             switch (sourceCodeChar)
             {
                 case ' ': Flush(); break;
-                case ';':
-                    Flush();
-                    tokens.Add(new Token(sourcePos, ";"));
+                case ';' or ':':
+                    FlushAndAdd(sourceCodeChar);
                     break;
                 case '\n': ++sourcePos.Line; break;
                 default:
@@ -26,6 +25,15 @@ public class Lexer(string sourceCode)
         }
 
         return tokens;
+    }
+
+    private void FlushAndAdd(char toAdd)
+    {
+        Flush();
+
+        string toAddString = string.Empty;
+        toAddString += toAdd;
+        tokens.Add(new Token(sourcePos, toAddString));
     }
 
     private void Flush()
