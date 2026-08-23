@@ -18,7 +18,11 @@ internal sealed class MethodNode : ClassItem
     {
         functionName = packet.AdvanceIfEqual().Lexeme;
 
-        packet.ForAdvanceIfEqual(["(", ")", "{"]);
+        packet.ForAdvanceIfEqual([
+            TokenKind.OpenBracket,
+            TokenKind.CloseBracket,
+            TokenKind.OpenBrace
+        ]);
     }
 
     private void ParseFuncBody(ParsePacket packet)

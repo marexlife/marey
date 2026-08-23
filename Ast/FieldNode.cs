@@ -8,7 +8,11 @@ internal sealed class FieldNode : ClassItem
 
     internal override void Parse(ParsePacket packet)
     {
-        if (packet.Kind == TokenKind.Var) packet.Advance();
-        else throw new InvalidTokenException(packet.Pos, "");
+        packet.AdvanceIfEqual("var");
+        packet.AdvanceIfEqual();
+        packet.AdvanceIfEqual(":");
+        packet.AdvanceIfEqual("=");
+        packet.AdvanceIfEqual();
+        packet.AdvanceIfEqual(";");
     }
 }
