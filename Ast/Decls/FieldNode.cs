@@ -13,7 +13,7 @@ internal sealed class FieldNode : Decl, IClassItem
     private void ParseBool(ParsePacket packet)
     {
         packet.AdvanceIfEqual(TokenKind.Var);
-        DeclName = packet.AdvanceIfEqual().Lexeme;
+        DeclName = packet.AdvanceIfEqual();
         packet.AdvanceIfEqual([TokenKind.Colon, TokenKind.Bool, TokenKind.Assignment]);
         packet.AdvanceIfEqual();
         packet.AdvanceIfEqual(TokenKind.StatementEnd);
