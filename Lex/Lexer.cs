@@ -5,47 +5,48 @@ internal sealed class Lexer(string sourceCode)
     private TokenStream tokens = [];
     private string _lastWord = string.Empty;
     private SourcePos sourcePos = new();
+
+    private char _sourceCodeChar;
     private bool _isContentToFlushAvailable = false;
 
     internal TokenStream Run()
     {
         foreach (var sourceCodeChar in sourceCode)
         {
-            switch (sourceCodeChar)
-            {
-                case ' ':
-                    Flush();
-                    break;
-                case ';' or ':' or '{' or '}' or '(' or ')':
-                    FlushAndAdd(sourceCodeChar);
-                    break;
-                case '\n':
-                    Flush();
-                    ++sourcePos.Line;
-                    sourcePos.Column = 0;
-                    continue;
-                default:
-                    _lastWord += sourceCodeChar;
-                    _isContentToFlushAvailable = true;
-                    break;
-            }
+            _sourceCodeChar = sourceCodeChar;
 
-            ++sourcePos.Column;
+            sourcePos.Advance(sourceCodeChar);
+
+            Action targetAction = sourceCodeChar switch
+            {
+                ' ' => FlushWithoutAdd,
+                ';' or ':' or '{' or '}' or '(' or ')' => FlushAndAdd,
+                '\n' => FlushWithoutAdd,
+                _ => HandleDefaultChar,
+            };
+
+            targetAction.Invoke();
         }
 
         return tokens;
     }
 
-    private void FlushAndAdd(char toAdd)
+    private void HandleDefaultChar()
     {
-        Flush();
+        _lastWord += _sourceCodeChar;
+        _isContentToFlushAvailable = true;
+    }
+
+    private void FlushAndAdd()
+    {
+        FlushWithoutAdd();
 
         string toAddString = string.Empty;
-        toAddString += toAdd;
+        toAddString += _sourceCodeChar;
         tokens.Add(new Token(sourcePos, toAddString));
     }
 
-    private void Flush()
+    private void FlushWithoutAdd()
     {
         if (!_isContentToFlushAvailable) return;
 

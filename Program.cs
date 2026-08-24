@@ -13,7 +13,7 @@ internal static class Program
         var y: bool = true;
 
         def update() {
-            var x: bool = true;
+            var x: bool = true
         }
         """;
 
