@@ -22,6 +22,7 @@ internal sealed class Lexer(string sourceCode)
                 case '\n':
                     Flush();
                     ++sourcePos.Line;
+                    sourcePos.Column = 0;
                     continue;
                 default:
                     _lastWord += sourceCodeChar;
