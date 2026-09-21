@@ -11,6 +11,11 @@ internal sealed class TokenStream(List<Token> tokens)
     internal bool IsFinished => Progress >= Tokens.Count;
     internal void Advance() => ++Progress;
 
+    internal Token At(int progress) => Tokens[progress];
+    internal TokenKind KindAt(int progress) => Tokens[progress].Kind;
+
+    internal bool MatchesAt(int progress, TokenKind kind) => Tokens[progress].Kind == kind;
+    internal bool MismatchesAt(int progress, TokenKind kind) => Tokens[progress].Kind != kind;
 
     internal void AdvanceIfEqual(TokenKind[] comparers)
     {
