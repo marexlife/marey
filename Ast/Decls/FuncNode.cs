@@ -10,13 +10,13 @@ internal sealed class FuncNode : IAstNodeItem
     private string? _functionName;
     private TypeKind? _returnType;
 
-    private void ParseFuncSignature(ParsePack packet)
+    private void ParseFuncSignature(TokenStream packet)
     {
-        packet.AdvanceIfEqual(TokenKind.Fun);
-        _functionName = packet.AdvanceIfEqual();
+        packet.AdvanceIfEqualOrThrow(TokenKind.Fun);
+        _functionName = packet.AdvanceIfEqualOrThrow();
 
-        packet.AdvanceIfEqual(TokenKind.OpenBracket);
-        packet.AdvanceIfEqual(TokenKind.CloseBracket);
+        packet.AdvanceIfEqualOrThrow(TokenKind.OpenBracket);
+        packet.AdvanceIfEqualOrThrow(TokenKind.CloseBracket);
 
         switch (packet.Kind)
         {
@@ -24,7 +24,7 @@ internal sealed class FuncNode : IAstNodeItem
                 packet.Advance();
                 _returnType = packet.Kind.ConvertToType(packet);
                 packet.Advance();
-                packet.AdvanceIfEqual(TokenKind.OpenBrace);
+                packet.AdvanceIfEqualOrThrow(TokenKind.OpenBrace);
                 break;
             case TokenKind.OpenBrace:
                 packet.Advance();
@@ -35,7 +35,7 @@ internal sealed class FuncNode : IAstNodeItem
         }
     }
 
-    private void ParseFuncBody(ParsePack packet)
+    private void ParseFuncBody(TokenStream packet)
     {
         bool breakOut = false;
 
@@ -60,7 +60,7 @@ internal sealed class FuncNode : IAstNodeItem
         }
     }
 
-    private void AddAndParseSubNode<T>(ParsePack packet) where T : IAstNodeItem, new()
+    private void AddAndParseSubNode<T>(TokenStream packet) where T : IAstNodeItem, new()
     {
         var newInMethodNode = new T();
 
@@ -69,13 +69,13 @@ internal sealed class FuncNode : IAstNodeItem
         _inMethodNodes.Add(newInMethodNode);
     }
 
-    void IAstNode.Parse(ParsePack packet)
+    void IParsable.Parse(TokenStream packet)
     {
         ParseFuncSignature(packet);
         ParseFuncBody(packet);
     }
 
-    void IAstNode.Emit(EmitPack pack)
+    void IParsable.Emit(EmitPack pack)
     {
         throw new NotImplementedException();
     }

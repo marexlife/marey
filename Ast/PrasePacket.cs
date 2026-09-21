@@ -2,9 +2,9 @@ namespace Marey.Ast;
 
 using Marey.Lex;
 
-internal sealed class ParsePack(TokenStream tokenStream)
+internal sealed class TokenStream(List<Token> tokens)
 {
-    internal TokenStream Tokens { get; } = tokenStream;
+    internal List<Token> Tokens { get; } = tokens;
 
     internal int Progress { get; set; }
 
@@ -16,13 +16,13 @@ internal sealed class ParsePack(TokenStream tokenStream)
     {
         foreach (var comparer in comparers)
         {
-            AdvanceIfEqual(comparer);
+            AdvanceIfEqualOrThrow(comparer);
         }
     }
 
     internal bool IsEqual(TokenKind comparer) => Kind == comparer;
 
-    internal string AdvanceIfEqual(TokenKind comparer = TokenKind.Ident)
+    internal string AdvanceIfEqualOrThrow(TokenKind comparer = TokenKind.Ident)
     {
         if (Kind == comparer)
         {

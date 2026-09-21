@@ -7,7 +7,7 @@ internal static partial class TokenKindExtension
 {
     extension(TokenKind self)
     {
-        internal TypeKind ConvertToType(ParsePack packet) => self switch
+        internal TypeKind ConvertToType(TokenStream packet) => self switch
         {
             TokenKind.Bool => TypeKind.Bool,
             TokenKind.Int => TypeKind.Int,

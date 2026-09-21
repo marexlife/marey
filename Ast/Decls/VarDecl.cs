@@ -8,16 +8,16 @@ internal sealed class VarDecl : IAstNodeItem
     private string? _valueString;
     private TypeKind? _varNodeKind;
 
-    void IAstNode.Emit(EmitPack pack)
+    void IParsable.Emit(EmitPack pack)
     {
         throw new NotImplementedException();
     }
 
-    void IAstNode.Parse(ParsePack packet)
+    void IParsable.Parse(TokenStream packet)
     {
-        packet.AdvanceIfEqual(TokenKind.Var);
-        _declName = packet.AdvanceIfEqual();
-        packet.AdvanceIfEqual(TokenKind.Colon);
+        packet.AdvanceIfEqualOrThrow(TokenKind.Var);
+        _declName = packet.AdvanceIfEqualOrThrow();
+        packet.AdvanceIfEqualOrThrow(TokenKind.Colon);
 
         _varNodeKind = packet.Kind switch
         {
@@ -29,9 +29,9 @@ internal sealed class VarDecl : IAstNodeItem
 
         packet.Advance();
 
-        packet.AdvanceIfEqual(TokenKind.Assignment);
+        packet.AdvanceIfEqualOrThrow(TokenKind.Assignment);
 
-        _valueString = packet.AdvanceIfEqual();
-        packet.AdvanceIfEqual(TokenKind.StatementEnd);
+        _valueString = packet.AdvanceIfEqualOrThrow();
+        packet.AdvanceIfEqualOrThrow(TokenKind.StatementEnd);
     }
 }

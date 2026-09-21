@@ -6,11 +6,13 @@ internal sealed class TranslationUnit
 {
     private ClassNode _classNode = new();
 
-    internal void Parse(TokenStream tokenStream)
+    internal void Parse(List<Token> tokens)
     {
         try
         {
-            _classNode.Parse(new ParsePack(tokenStream));
+            TokenStream stream = new(tokens);
+
+            _classNode.Parse(stream);
         }
         catch (InvalidTokenException exception)
         {

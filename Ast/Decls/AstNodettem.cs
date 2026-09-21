@@ -1,3 +1,3 @@
 namespace Marey.Ast.Decls;
 
-internal interface IAstNodeItem : IAstNode;
+internal interface IAstNodeItem : IParsable;

@@ -2,14 +2,14 @@ namespace Marey.Lex;
 
 internal sealed class Lexer(string sourceCode)
 {
-    private TokenStream tokens = [];
+    private List<Token> tokens = [];
     private string _lastWord = string.Empty;
     private SourcePos sourcePos = new();
 
     private char _sourceCodeChar;
     private bool _isContentToFlushAvailable = false;
 
-    internal TokenStream Run()
+    internal List<Token> Run()
     {
         foreach (var sourceCodeChar in sourceCode)
         {

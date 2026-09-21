@@ -22,11 +22,11 @@ internal sealed class ClassNode
         }
     }
 
-    internal void Parse(ParsePack pack)
+    internal void Parse(TokenStream pack)
     {
-        pack.AdvanceIfEqual(TokenKind.Extends);
-        _parentClassName = pack.AdvanceIfEqual(TokenKind.Ident);
-        pack.AdvanceIfEqual(TokenKind.StatementEnd);
+        pack.AdvanceIfEqualOrThrow(TokenKind.Extends);
+        _parentClassName = pack.AdvanceIfEqualOrThrow(TokenKind.Ident);
+        pack.AdvanceIfEqualOrThrow(TokenKind.StatementEnd);
 
         while (!pack.IsFinished)
         {
