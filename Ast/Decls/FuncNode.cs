@@ -69,13 +69,13 @@ internal sealed class FuncNode : IAstNodeItem
         _inMethodNodes.Add(newInMethodNode);
     }
 
-    void IParsable.Parse(TokenStream packet)
+    void AstNode.Parse(TokenStream packet)
     {
         ParseFuncSignature(packet);
         ParseFuncBody(packet);
     }
 
-    void IParsable.Emit(EmitPack pack)
+    void AstNode.Emit(EmitPack pack)
     {
         throw new NotImplementedException();
     }

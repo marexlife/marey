@@ -8,12 +8,12 @@ internal sealed class VarDecl : IAstNodeItem
     private string? _valueString;
     private TypeKind? _varNodeKind;
 
-    void IParsable.Emit(EmitPack pack)
+    void AstNode.Emit(EmitPack pack)
     {
         throw new NotImplementedException();
     }
 
-    void IParsable.Parse(TokenStream packet)
+    void AstNode.Parse(TokenStream packet)
     {
         packet.AdvanceIfEqualOrThrow(TokenKind.Var);
         _declName = packet.AdvanceIfEqualOrThrow();

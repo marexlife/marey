@@ -1,7 +1,7 @@
 namespace Marey.Ast;
 
-internal interface IParsable
+internal abstract class AstNode
 {
-    internal void Parse(TokenStream parsePacket);
-    internal void Emit(EmitPack target);
+    internal abstract void Parse(TokenStream parsePacket);
+    internal abstract void Emit(EmitPack target);
 }
