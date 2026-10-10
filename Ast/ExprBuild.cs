@@ -2,22 +2,34 @@ using Marey.Ast.Expressions;
 
 namespace Marey.Ast;
 
-internal static class ExprBuild
+internal sealed class ExprBuild
 {
-    internal static Expr BuildExpression(List<Expr> expressions)
+    internal int Progress { get; private set; } = 0;
+    internal Expr Current => _expressions[Progress];
+    internal Expr? Next
     {
-        var expr = new Expr();
-        Expr? previous = null;
-        var previousWasMorePowerful = false;
-
-        foreach (var expression in expressions)
+        get
         {
-            switch (expression)
-            {
-                
-            }
-        }
+            var target = Progress + 1;
 
-        return expr;
+            return
+                target < _expressions.Count ?
+                _expressions[target] : null;
+        }
+    }
+
+    private List<Expr> _expressions = [];
+
+    internal bool IsNextMorePowerful
+    {
+        get
+        {
+            if (Next == null)
+            {
+                throw new Exception("Should not have been called.");
+            }
+
+            return Current.GetBindingPower() < Next.GetBindingPower();
+        }
     }
 }

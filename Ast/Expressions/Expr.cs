@@ -1,6 +1,3 @@
 namespace Marey.Ast.Expressions;
 
-internal class Expr
-{
-
-}
+internal abstract class Expr : AstNode;
