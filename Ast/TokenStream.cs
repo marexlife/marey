@@ -1,5 +1,6 @@
 namespace Marey.Ast;
 
+using Marey.Ast.Expressions;
 using Marey.Lex;
 
 internal sealed class TokenStream(List<Token> tokens)
@@ -16,6 +17,18 @@ internal sealed class TokenStream(List<Token> tokens)
 
     internal bool MatchesAt(int progress, TokenKind kind) => Tokens[progress].Kind == kind;
     internal bool MismatchesAt(int progress, TokenKind kind) => Tokens[progress].Kind != kind;
+
+    internal List<Expr> ConvertUntil(TokenKind tokenKind)
+    {
+        List<Expr> result = [];
+
+        for (int i = Progress; Tokens[i].Kind == tokenKind; ++i)
+        {
+            result.Add(ExprFactory.NewExpr(Tokens[i]));
+        }
+
+        return result;
+    }
 
     internal void AdvanceIfEqual(TokenKind[] comparers)
     {
